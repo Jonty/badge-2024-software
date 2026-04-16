@@ -6,9 +6,9 @@
 #include "driver/i2c.h"
 #include "extmod/modmachine.h"
 
-#if CONFIG_IDF_TARGET_ESP32C3 || CONFIG_IDF_TARGET_ESP32S3
-#define I2C_SCLK_FREQ XTAL_CLK_FREQ
-#elif CONFIG_IDF_TARGET_ESP32 || CONFIG_IDF_TARGET_ESP32S2
+#if SOC_I2C_SUPPORT_XTAL
+#define I2C_SCLK_FREQ (CONFIG_XTAL_FREQ * 1000000)
+#elif SOC_I2C_SUPPORT_APB
 #define I2C_SCLK_FREQ APB_CLK_FREQ
 #else
 #error "unsupported I2C for ESP32 SoC variant"
